@@ -1,6 +1,7 @@
 package com.sprintplanner.planner.impl.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member get(String id) {
-        return repository.findById(id).orElse(null);
+    public Optional<Member> get(String id) {
+        return repository.findById(id);
     }
 
     @Override

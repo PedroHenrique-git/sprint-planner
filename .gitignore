@@ -33,3 +33,7 @@ build/
 .vscode/
 
 .env
+
+### Docker volumes ###
+
+config/

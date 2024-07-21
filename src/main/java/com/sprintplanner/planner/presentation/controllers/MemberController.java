@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprintplanner.planner.domain.model.Member;
+import com.sprintplanner.planner.domain.service.MemberService;
 import com.sprintplanner.planner.impl.services.MemberServiceImpl;
 import com.sprintplanner.planner.impl.services.dto.MemberDTO;
 
@@ -12,7 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/api/v1/members")
 @Tag(name = "Member", description = "member API")
-public class MemberController extends BaseController<Member, MemberDTO, MemberServiceImpl> {
+public class MemberController extends BaseController<Member, MemberDTO, MemberService> {
     public MemberController(MemberServiceImpl service) {
         super(service);
     }

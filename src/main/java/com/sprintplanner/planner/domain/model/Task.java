@@ -1,5 +1,8 @@
 package com.sprintplanner.planner.domain.model;
 
+import com.sprintplanner.planner.domain.enumeration.Complexity;
+import com.sprintplanner.planner.domain.enumeration.Priority;
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,10 +36,10 @@ public class Task {
     private String description;
 
     @Nonnull
-    private String complexity;
+    private Complexity complexity;
 
     @Nonnull
-    private String priority;
+    private Priority priority;
 
     @Nonnull
     private int punctuation;
