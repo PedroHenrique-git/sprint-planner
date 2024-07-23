@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sprintplanner.planner.domain.service.CrudService;
+import com.sprintplanner.planner.impl.services.dto.PageableConfigDTO;
+import com.sprintplanner.planner.impl.services.dto.PageableDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -37,6 +41,28 @@ public abstract class BaseController<Model, ModelDTO, ModelService extends CrudS
         List<Model> data = service.getAll();
 
         return ResponseEntity.ok().body(mapListModelToListDTO(data));
+    }
+
+    @GetMapping("/paged")
+    @Operation(summary = "Get all paged elements")
+    public ResponseEntity<PageableDTO<ModelDTO>> getAllPaged(
+            @RequestParam(required = true, value = "page") int page,
+            @RequestParam(required = true, value = "pageSize") int pageSize) {
+        PageableDTO<ModelDTO> response = new PageableDTO<>();
+        PageableConfigDTO config = new PageableConfigDTO();
+
+        Page<Model> pageableContent = service.getAllPaged(page, pageSize);
+        List<ModelDTO> data = mapListModelToListDTO(pageableContent.getContent());
+
+        config.setPage(pageableContent.getPageable().getPageNumber());
+        config.setPageSize(pageableContent.getPageable().getPageSize());
+        config.setTotalPages(pageableContent.getTotalPages());
+        config.setTotalElements(pageableContent.getTotalElements());
+
+        response.setData(data);
+        response.setConfig(config);
+
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{id}")

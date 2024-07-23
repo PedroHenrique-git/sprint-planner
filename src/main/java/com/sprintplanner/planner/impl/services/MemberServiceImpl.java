@@ -3,6 +3,8 @@ package com.sprintplanner.planner.impl.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.sprintplanner.planner.domain.model.Member;
@@ -35,6 +37,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<Member> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public Page<Member> getAllPaged(int page, int pageSize) {
+        return repository.findAll(PageRequest.of(page, pageSize));
     }
 
     @Override

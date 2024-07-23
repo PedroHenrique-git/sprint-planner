@@ -23,14 +23,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "member")
-@Entity(name = "member")
+@Table(name = "team")
+@Entity(name = "team")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Member {
+public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -39,23 +39,13 @@ public class Member {
     private String name;
 
     @Nonnull
-    private String avatar;
+    private String description;
 
-    @Nonnull
-    private String email;
-
-    @Nonnull
-    private String password;
-
-    @OneToMany(mappedBy = "member")
-    private List<Task> tasks;
-
-    @ManyToMany
-    @JoinTable(name = "sprint_member", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "sprint_id"))
+    @OneToMany(mappedBy = "team")
     private List<Sprint> sprints;
 
     @ManyToMany
-    @JoinTable(name = "team_member", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
+    @JoinTable(name = "team_member", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "member_id"))
     private List<Member> members;
 
     @CreationTimestamp

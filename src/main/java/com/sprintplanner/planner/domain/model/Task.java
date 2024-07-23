@@ -1,9 +1,15 @@
 package com.sprintplanner.planner.domain.model;
 
+import java.time.Instant;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.sprintplanner.planner.domain.enumeration.Complexity;
 import com.sprintplanner.planner.domain.enumeration.Priority;
 
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -51,4 +57,12 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "sprint_id")
     private Sprint sprint;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Instant createdOn;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Instant lastUpdatedOn;
 }

@@ -17,7 +17,7 @@ public class DataSourceConfig {
 
     @Bean
     DataSource getDataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
 
         dataSourceBuilder.driverClassName(env.getProperty("DATASOURCE_DRIVER_CLASS_NAME"));
         dataSourceBuilder.url(env.getProperty("DATASOURCE_URL"));

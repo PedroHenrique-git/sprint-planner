@@ -3,6 +3,8 @@ package com.sprintplanner.planner.domain.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+
 public interface CrudService<Model> {
     Model create(Model data);
 
@@ -13,4 +15,6 @@ public interface CrudService<Model> {
     Optional<Model> get(String id);
 
     List<Model> getAll();
+
+    Page<Model> getAllPaged(int page, int pageSize);
 }
