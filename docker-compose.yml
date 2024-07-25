@@ -13,6 +13,30 @@ services:
       - "5432:5432"
     networks:
       - app
+  
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    restart: always
+    env_file: .env
+    environment:
+      - KC_HEALTH_ENABLED=true
+      - KC_METRICS_ENABLED=true
+      - KC_DB=${KC_DB}
+      - KC_DB_URL=${KC_DB_URL}
+      - KC_DB_USERNAME=${KC_DB_USERNAME}
+      - KC_DB_PASSWORD=${KC_DB_PASSWORD}
+      - KC_HOSTNAME=${KC_HOSTNAME}
+      - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+    command: start-dev
+    ports:
+      - 8080:8080
+      - 8443:8443
+      - 9000:9000
+    networks:
+      - app
+    depends_on:
+      - db
 
 networks:
   app:
