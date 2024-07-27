@@ -56,7 +56,7 @@ public class Member {
 
     @ManyToMany
     @JoinTable(name = "team_member", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-    private List<Member> members;
+    private List<Team> teams;
 
     @CreationTimestamp
     @Column(name = "created_at")

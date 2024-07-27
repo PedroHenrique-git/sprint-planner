@@ -41,6 +41,9 @@ public class MemberDTO {
     @Size(min = 8, max = 255, message = "The password must be between 8 and 255 characters")
     String password;
 
+    @NotNull(message = "the member teams must not the null")
+    List<String> teams;
+
     @NotNull(message = "the member tasks must not the null")
     List<String> tasks;
 
