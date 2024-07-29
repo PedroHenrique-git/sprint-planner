@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sprintplanner.planner.domain.mapper.Mapper;
 import com.sprintplanner.planner.domain.service.CrudService;
 import com.sprintplanner.planner.impl.services.dto.PageableConfigDTO;
 import com.sprintplanner.planner.impl.services.dto.PageableDTO;
@@ -26,33 +26,33 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 
-public abstract class BaseController<Model, ModelDTO, ModelService extends CrudService<Model>> {
+public abstract class CrudController<Model, ModelDTO, ModelDTOResponse, ModelService extends CrudService<Model>> {
     private final ModelService service;
-    protected final ModelMapper modelMapper;
+    protected final Mapper<Model, ModelDTO, ModelDTOResponse> mapper;
 
-    protected BaseController(ModelService service) {
+    protected CrudController(ModelService service, Mapper<Model, ModelDTO, ModelDTOResponse> mapper) {
         this.service = service;
-        this.modelMapper = new ModelMapper();
+        this.mapper = mapper;
     }
 
     @GetMapping
     @Operation(summary = "Get all elements")
-    public ResponseEntity<List<ModelDTO>> getAll() {
+    public ResponseEntity<List<ModelDTOResponse>> getAll() {
         List<Model> data = service.getAll();
 
-        return ResponseEntity.ok().body(mapListModelToListDTO(data));
+        return ResponseEntity.ok().body(mapper.fromListModelToListModelDTOResponse(data));
     }
 
     @GetMapping("/paged")
     @Operation(summary = "Get all paged elements")
-    public ResponseEntity<PageableDTO<ModelDTO>> getAllPaged(
+    public ResponseEntity<PageableDTO<ModelDTOResponse>> getAllPaged(
             @RequestParam(required = true, value = "page") int page,
             @RequestParam(required = true, value = "pageSize") int pageSize) {
-        PageableDTO<ModelDTO> response = new PageableDTO<>();
+        PageableDTO<ModelDTOResponse> response = new PageableDTO<>();
         PageableConfigDTO config = new PageableConfigDTO();
 
         Page<Model> pageableContent = service.getAllPaged(page, pageSize);
-        List<ModelDTO> data = mapListModelToListDTO(pageableContent.getContent());
+        List<ModelDTOResponse> data = mapper.fromListModelToListModelDTOResponse(pageableContent.getContent());
 
         config.setPage(pageableContent.getPageable().getPageNumber());
         config.setPageSize(pageableContent.getPageable().getPageSize());
@@ -67,34 +67,34 @@ public abstract class BaseController<Model, ModelDTO, ModelService extends CrudS
 
     @GetMapping("/{id}")
     @Operation(summary = "Get element by id")
-    public ResponseEntity<ModelDTO> get(@PathVariable String id) {
+    public ResponseEntity<ModelDTOResponse> get(@PathVariable String id) {
         Optional<Model> data = service.get(id);
 
         if (!data.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(mapModelToDTO(data.get()));
+        return ResponseEntity.ok().body(mapper.fromModelToModelDTOResponse(data.get()));
     }
 
     @PostMapping
     @Operation(summary = "Create a new element")
-    public ResponseEntity<ModelDTO> create(@RequestBody @Valid ModelDTO payload) {
-        Model data = service.create(mapDtoToModel(payload));
+    public ResponseEntity<ModelDTOResponse> create(@RequestBody @Valid ModelDTO payload) {
+        Model data = service.create(mapper.fromModelDtoToModel(payload));
 
-        return ResponseEntity.ok().body(mapModelToDTO(data));
+        return ResponseEntity.ok().body(mapper.fromModelToModelDTOResponse(data));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update element")
-    public ResponseEntity<ModelDTO> update(@PathVariable String id, @RequestBody @Valid ModelDTO payload) {
-        Model data = service.update(id, mapDtoToModel(payload));
+    public ResponseEntity<ModelDTOResponse> update(@PathVariable String id, @RequestBody @Valid ModelDTO payload) {
+        Model data = service.update(id, mapper.fromModelDtoToModel(payload));
 
         if (data == null) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(mapModelToDTO(data));
+        return ResponseEntity.ok().body(mapper.fromModelToModelDTOResponse(data));
     }
 
     @DeleteMapping("/{id}")
@@ -122,12 +122,4 @@ public abstract class BaseController<Model, ModelDTO, ModelService extends CrudS
 
         return ResponseEntity.badRequest().body(body);
     }
-
-    protected List<ModelDTO> mapListModelToListDTO(List<Model> listModel) {
-        return listModel.stream().map(this::mapModelToDTO).toList();
-    }
-
-    protected abstract Model mapDtoToModel(ModelDTO dto);
-
-    protected abstract ModelDTO mapModelToDTO(Model model);
 }

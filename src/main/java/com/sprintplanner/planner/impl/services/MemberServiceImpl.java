@@ -54,7 +54,9 @@ public class MemberServiceImpl implements MemberService {
 
         member.setAvatar(newMember.getAvatar());
         member.setEmail(newMember.getEmail());
-        member.setName(newMember.getName());
+        member.setUsername(newMember.getUsername());
+        member.setFirstName(newMember.getFirstName());
+        member.setLastName(newMember.getLastName());
         member.setPassword(newMember.getPassword());
         member.setSprints(newMember.getSprints());
         member.setTasks(newMember.getTasks());

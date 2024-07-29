@@ -1,8 +1,5 @@
 package com.sprintplanner.planner.impl.services.dto;
 
-import org.springframework.data.annotation.ReadOnlyProperty;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sprintplanner.planner.domain.enumeration.Complexity;
 import com.sprintplanner.planner.domain.enumeration.Priority;
 
@@ -19,10 +16,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class TaskDTO {
-    @JsonProperty("id")
-    @ReadOnlyProperty
-    String id;
-
     @NotBlank(message = "the task name must not the blank")
     @NotNull(message = "the task name must not the null")
     @Size(min = 1, max = 255, message = "The name must be between 1 and 255 characters")

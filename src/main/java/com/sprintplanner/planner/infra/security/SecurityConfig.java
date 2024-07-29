@@ -14,9 +14,6 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    public static final String TEAM_MEMBER = "member";
-    public static final String TEAM_SCRUM_MASTER = "scrum_master";
-
     private static final String[] SWAGGER_WHITELIST = {
         "/v3/api-docs/**",
         "/swagger-ui/**",

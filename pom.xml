@@ -93,6 +93,11 @@
 			<artifactId>spring-graphql-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-admin-client</artifactId>
+			<version>25.0.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
