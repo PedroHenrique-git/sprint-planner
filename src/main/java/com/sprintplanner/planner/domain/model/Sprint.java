@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,7 +43,7 @@ public class Sprint {
     @Nonnull
     private String description;
 
-    @OneToMany(mappedBy = "sprint")
+    @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
     @ManyToOne
