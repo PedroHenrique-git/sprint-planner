@@ -13,10 +13,10 @@ import com.sprintplanner.planner.domain.model.Sprint;
 import com.sprintplanner.planner.domain.model.Task;
 import com.sprintplanner.planner.domain.service.MemberService;
 import com.sprintplanner.planner.domain.service.TaskService;
+import com.sprintplanner.planner.domain.service.dto.SprintDTO;
+import com.sprintplanner.planner.domain.service.dto.SprintDTOResponse;
 import com.sprintplanner.planner.impl.services.MemberServiceImpl;
 import com.sprintplanner.planner.impl.services.TaskServiceImpl;
-import com.sprintplanner.planner.impl.services.dto.SprintDTO;
-import com.sprintplanner.planner.impl.services.dto.SprintDTOResponse;
 
 import jakarta.validation.ValidationException;
 

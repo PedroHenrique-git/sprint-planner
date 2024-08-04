@@ -1,4 +1,4 @@
-package com.sprintplanner.planner.impl.services.dto;
+package com.sprintplanner.planner.domain.service.dto;
 
 import com.sprintplanner.planner.domain.enumeration.Complexity;
 import com.sprintplanner.planner.domain.enumeration.Priority;

@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private static final String[] SWAGGER_WHITELIST = {
+    private static final String[] WHITELIST = {
         "/v3/api-docs/**",
         "/swagger-ui/**",
         "/swagger-ui.html",
@@ -25,8 +25,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(SWAGGER_WHITELIST).permitAll()
+                .requestMatchers(WHITELIST).permitAll()
                 .requestMatchers(HttpMethod.GET, "/").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
                 .anyRequest().authenticated());
                 
         http.sessionManagement(session -> session.sessionCreationPolicy(

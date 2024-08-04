@@ -1,6 +1,4 @@
-package com.sprintplanner.planner.impl.services.dto;
-
-import java.util.List;
+package com.sprintplanner.planner.domain.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,19 +9,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TeamDTOResponse {
+public class AuthLoginDTOResponse {
     @JsonProperty
-    String id;
+    String accessToken;
 
     @JsonProperty
-    String name;
+    long expiresIn;
 
     @JsonProperty
-    String description;
+    long refreshExpiresIn;
 
     @JsonProperty
-    List<String> sprints;
+    String refreshToken;
 
     @JsonProperty
-    List<String> members;
+    String tokenType;
 }

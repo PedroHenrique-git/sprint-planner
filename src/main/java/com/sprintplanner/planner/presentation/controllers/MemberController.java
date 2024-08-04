@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sprintplanner.planner.domain.model.Member;
 import com.sprintplanner.planner.domain.service.MemberService;
+import com.sprintplanner.planner.domain.service.dto.MemberDTO;
+import com.sprintplanner.planner.domain.service.dto.MemberDTOResponse;
 import com.sprintplanner.planner.impl.mappers.MemberMapperImpl;
 import com.sprintplanner.planner.impl.services.MemberServiceImpl;
-import com.sprintplanner.planner.impl.services.dto.MemberDTO;
-import com.sprintplanner.planner.impl.services.dto.MemberDTOResponse;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 

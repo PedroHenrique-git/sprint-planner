@@ -1,4 +1,4 @@
-package com.sprintplanner.planner.impl.services.dto;
+package com.sprintplanner.planner.domain.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sprintplanner.planner.domain.enumeration.Complexity;

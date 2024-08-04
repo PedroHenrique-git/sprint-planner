@@ -15,11 +15,11 @@ import com.sprintplanner.planner.domain.model.Team;
 import com.sprintplanner.planner.domain.service.SprintService;
 import com.sprintplanner.planner.domain.service.TaskService;
 import com.sprintplanner.planner.domain.service.TeamService;
+import com.sprintplanner.planner.domain.service.dto.MemberDTO;
+import com.sprintplanner.planner.domain.service.dto.MemberDTOResponse;
 import com.sprintplanner.planner.impl.services.SprintServiceImpl;
 import com.sprintplanner.planner.impl.services.TaskServiceImpl;
 import com.sprintplanner.planner.impl.services.TeamServiceImpl;
-import com.sprintplanner.planner.impl.services.dto.MemberDTO;
-import com.sprintplanner.planner.impl.services.dto.MemberDTOResponse;
 
 import jakarta.validation.ValidationException;
 

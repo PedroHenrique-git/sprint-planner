@@ -1,4 +1,15 @@
 services:
+  server:
+    build:
+      context: .
+    ports:
+      - 8090:8090
+    networks:
+      - app
+    depends_on:
+      - db
+      - keycloak
+
   db:
     image: postgres:16.3
     restart: always
@@ -37,6 +48,7 @@ services:
       - app
     depends_on:
       - db
+      - mailhog
 
   mailhog:
     image: mailhog/mailhog:latest

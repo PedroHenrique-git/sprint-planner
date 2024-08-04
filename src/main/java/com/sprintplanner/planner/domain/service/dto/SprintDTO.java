@@ -1,4 +1,4 @@
-package com.sprintplanner.planner.impl.services.dto;
+package com.sprintplanner.planner.domain.service.dto;
 
 import java.util.List;
 
@@ -12,20 +12,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TeamDTO {
-    @NotBlank(message = "the team name must not the blank")
-    @NotNull(message = "the team name must not the null")
+public class SprintDTO {
+    @NotBlank(message = "the sprint name must not the blank")
+    @NotNull(message = "the sprint name must not the null")
     @Size(min = 1, max = 255, message = "The name must be between 1 and 255 characters")
     String name;
 
-    @NotBlank(message = "the team description must not the blank")
-    @NotNull(message = "the team description must not the null")
+    @NotBlank(message = "the sprint description must not the blank")
+    @NotNull(message = "the sprint description must not the null")
     @Size(max = 255, message = "The description must not have a maximum of 255 characters")
     String description;
 
-    @NotNull(message = "the team sprints must not the null")
-    List<String> sprints;
+    @NotNull(message = "the sprint tasks must not the null")
+    List<String> tasks;
 
-    @NotNull(message = "the team members must not the null")
+    @NotNull(message = "the sprint members must not the null")
     List<String> members;
 }

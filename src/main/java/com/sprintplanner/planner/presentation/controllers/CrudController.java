@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sprintplanner.planner.domain.mapper.Mapper;
 import com.sprintplanner.planner.domain.service.CrudService;
-import com.sprintplanner.planner.impl.services.dto.PageableConfigDTO;
-import com.sprintplanner.planner.impl.services.dto.PageableDTO;
+import com.sprintplanner.planner.domain.service.dto.PageableConfigDTO;
+import com.sprintplanner.planner.domain.service.dto.PageableDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
