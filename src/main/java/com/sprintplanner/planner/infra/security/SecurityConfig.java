@@ -14,26 +14,26 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private static final String[] WHITELIST = {
-        "/v3/api-docs/**",
-        "/swagger-ui/**",
-        "/swagger-ui.html",
-    };
-
+    private final RoutesSecurityConfig config;
     private final JwtConverter jwtConverter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(WHITELIST).permitAll()
-                .requestMatchers(HttpMethod.GET, "/").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
-                .anyRequest().authenticated());
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+            .requestMatchers(HttpMethod.GET, config.API_GET_BLACK_LIST).authenticated()
+            .requestMatchers(HttpMethod.POST, config.API_POST_BLACK_LIST).authenticated()
+            .requestMatchers(HttpMethod.PUT, config.API_PUT_BLACK_LIST).authenticated()
+            .requestMatchers(HttpMethod.DELETE, config.API_DELETE_BLACK_LIST).authenticated()
+            .anyRequest().permitAll());
                 
-        http.sessionManagement(session -> session.sessionCreationPolicy(
+        http
+            .sessionManagement(session -> session.sessionCreationPolicy(
                 SessionCreationPolicy.STATELESS));
 
-        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter)));
+        http
+            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter)));
 
         return http.build();
     }
