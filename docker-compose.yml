@@ -67,6 +67,8 @@ services:
       - 80:80
     networks:
       - app
+    depends_on:
+      - server
 
 networks:
   app:
