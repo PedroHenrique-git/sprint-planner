@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprintplanner.planner.domain.model.Member;
 import com.sprintplanner.planner.domain.repository.MemberRepository;
@@ -32,6 +33,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Optional<Member> get(String id) {
         return repository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public Optional<Member> getByEmail(String email) {
+        return Optional.ofNullable(repository.findByEmail(email));
     }
 
     @Override

@@ -17,15 +17,15 @@ import io.swagger.v3.oas.models.security.SecurityScheme.Type;
 public class OpenAPISecurityConfig {
     private static final String OAUTH_SCHEME_NAME = "planner-oauth";
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+    @Value("${external.auth.url}")
     String authURL;
 
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
-            .addSecurityItem(new SecurityRequirement().addList(OAUTH_SCHEME_NAME))
-            .components(new Components().addSecuritySchemes(OAUTH_SCHEME_NAME, createOAuthScheme()))
-            .addSecurityItem(new SecurityRequirement().addList(OAUTH_SCHEME_NAME));
+                .addSecurityItem(new SecurityRequirement().addList(OAUTH_SCHEME_NAME))
+                .components(new Components().addSecuritySchemes(OAUTH_SCHEME_NAME, createOAuthScheme()))
+                .addSecurityItem(new SecurityRequirement().addList(OAUTH_SCHEME_NAME));
     }
 
     private SecurityScheme createOAuthScheme() {
@@ -33,11 +33,16 @@ public class OpenAPISecurityConfig {
     }
 
     private OAuthFlows createOauthFlows() {
+        String authorizationUrl = authURL + "/protocol/openid-connect/auth";
+        String refreshUrl = authURL + "/protocol/openid-connect/token";
+        String tokenUrl = authURL + "/protocol/openid-connect/token";
+
         final var oauthFlow = new OAuthFlow()
-            .authorizationUrl(authURL + "/protocol/openid-connect/auth")
-            .refreshUrl(authURL + "/protocol/openid-connect/token")
-            .tokenUrl(authURL + "/protocol/openid-connect/token")
-            .scopes(new Scopes());
+                .scopes(new Scopes());
+
+        oauthFlow.setAuthorizationUrl(authorizationUrl);
+        oauthFlow.setRefreshUrl(refreshUrl);
+        oauthFlow.setTokenUrl(tokenUrl);
 
         return new OAuthFlows().authorizationCode(oauthFlow);
     }
