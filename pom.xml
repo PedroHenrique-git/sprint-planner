@@ -98,6 +98,15 @@
 			<artifactId>keycloak-admin-client</artifactId>
 			<version>25.0.2</version>
 		</dependency>
+		<dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>10.17.0</version>
+        </dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -114,6 +123,11 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>10.17.0</version>
+            </plugin>
 		</plugins>
 	</build>
 

@@ -25,21 +25,22 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthLoginDTOResponse makeKeycloakLogin(AuthLoginDTO dto) throws AuthException {
         try {
-            var instance = sso.getSSOInstanceWithCredentials(Map.of("user", dto.getUsername(), "password", dto.getPassword()));
+            var instance = sso
+                    .getSSOInstanceWithCredentials(Map.of("user", dto.getUsername(), "password", dto.getPassword()));
             var token = instance.tokenManager().getAccessToken();
-    
+
             AuthLoginDTOResponse response = new AuthLoginDTOResponse();
-    
+
             response.setAccessToken(token.getToken());
             response.setExpiresIn(token.getExpiresIn());
             response.setRefreshToken(token.getRefreshToken());
             response.setRefreshExpiresIn(token.getRefreshExpiresIn());
             response.setTokenType(token.getTokenType());
-    
+
             return response;
-        } catch(NotAuthorizedException err) {
+        } catch (NotAuthorizedException err) {
             throw new AuthException("Invalid credentials", 401);
-        } catch(Exception err) {
+        } catch (Exception err) {
             throw new AuthException("Something went wrong", 500);
         }
     }

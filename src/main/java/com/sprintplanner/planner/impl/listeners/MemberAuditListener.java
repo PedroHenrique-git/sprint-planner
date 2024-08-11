@@ -20,7 +20,6 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
 
-
 public class MemberAuditListener implements MemberListener {
     @Value("${keycloak.realm}")
     private String realm;
@@ -38,7 +37,7 @@ public class MemberAuditListener implements MemberListener {
         UsersResource usersResource = realmResource.users();
 
         UserRepresentation user = usersResource.searchByEmail(member.getEmail(), true).getFirst();
-    
+
         UserResource userResource = usersResource.get(user.getId());
 
         userResource.remove();
@@ -51,7 +50,7 @@ public class MemberAuditListener implements MemberListener {
         UsersResource usersResource = realmResource.users();
 
         UserRepresentation user = usersResource.searchByEmail(member.getEmail(), true).getFirst();
-    
+
         UserResource userResource = usersResource.get(user.getId());
 
         user.setEmail(member.getEmail());
@@ -68,7 +67,7 @@ public class MemberAuditListener implements MemberListener {
 
         userResource.update(user);
     }
-    
+
     @TransactionalEventListener
     @PrePersist
     public void beforePersist(Member member) {
