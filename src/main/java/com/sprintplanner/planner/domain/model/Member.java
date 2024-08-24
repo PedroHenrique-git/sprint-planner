@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.sprintplanner.planner.domain.enumeration.UserAction;
+import com.sprintplanner.planner.domain.enumeration.UserStatus;
 import com.sprintplanner.planner.impl.listeners.MemberAuditListener;
 
 import jakarta.annotation.Nonnull;
@@ -61,14 +63,20 @@ public class Member {
     @Nonnull
     private String password;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @Nonnull
+    private UserStatus status;
+
+    @Nonnull
+    private UserAction action;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<Task> tasks;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "sprint_member", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "sprint_id"))
     private List<Sprint> sprints;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "team_member", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
     private List<Team> teams;
 

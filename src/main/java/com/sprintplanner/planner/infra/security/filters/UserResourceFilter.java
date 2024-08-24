@@ -76,7 +76,12 @@ public class UserResourceFilter extends OncePerRequestFilter {
     }
 
     private String getLastParamFromUri(String uri) {
-        List<String> segments = Arrays.asList(uri.split("/"));
+        List<String> segments = Arrays.asList(uri.split("/")).stream().filter(s -> !s.isEmpty() && !s.isBlank())
+                .toList();
+
+        if (segments.isEmpty()) {
+            return uri;
+        }
 
         return segments.get(segments.size() - 1);
     }

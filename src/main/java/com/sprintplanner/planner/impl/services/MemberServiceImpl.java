@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sprintplanner.planner.domain.enumeration.UserStatus;
 import com.sprintplanner.planner.domain.model.Member;
 import com.sprintplanner.planner.domain.repository.MemberRepository;
 import com.sprintplanner.planner.domain.service.MemberService;
@@ -42,6 +43,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
+    public List<Member> findByStatus(UserStatus status) {
+        return repository.findByStatus(status);
+    }
+
+    @Override
     public List<Member> getAll() {
         return repository.findAll();
     }
@@ -59,6 +66,8 @@ public class MemberServiceImpl implements MemberService {
             return member;
         }
 
+        member.setStatus(newMember.getStatus());
+        member.setAction(newMember.getAction());
         member.setAvatar(newMember.getAvatar());
         member.setEmail(newMember.getEmail());
         member.setUsername(newMember.getUsername());
