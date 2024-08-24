@@ -72,9 +72,34 @@ services:
     depends_on:
       - server
 
+  # Generate token -> bin/elasticsearch-create-enrollment-token --scope kibana
+  # Generate password -> bin/elasticsearch-setup-passwords interactive
+  elastic:
+    image: elasticsearch:8.15.0
+    volumes:
+      - elastic:/usr/share/elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - app
+
+  kibana:
+    image: kibana:8.15.0
+    volumes:
+      - kibana:/usr/share/kibana
+    ports:
+      - 5601:5601
+    networks:
+      - app
+    depends_on:
+      - elastic
+
 networks:
   app:
     driver: bridge
 
 volumes:
   postgres:
+  elastic:
+  kibana:
