@@ -1,6 +1,7 @@
 package com.sprintplanner.planner.domain.model;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +11,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,16 +45,16 @@ public class Sprint {
     @Nonnull
     private String description;
 
-    @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
-    private List<Task> tasks;
+    @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Task> tasks = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "sprint_member", joinColumns = @JoinColumn(name = "sprint_id"), inverseJoinColumns = @JoinColumn(name = "member_id"))
-    private List<Member> members;
+    private List<Member> members = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at")

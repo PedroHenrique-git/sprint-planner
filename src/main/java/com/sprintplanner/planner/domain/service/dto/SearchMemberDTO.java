@@ -11,22 +11,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class SprintDTOResponse {
+public class SearchMemberDTO {
     @JsonProperty
     String id;
 
     @JsonProperty
-    String name;
+    String username;
 
     @JsonProperty
-    String description;
+    String firstName;
 
     @JsonProperty
-    String teamId;
+    String lastName;
+
+    @JsonProperty
+    String avatar;
+
+    @JsonProperty
+    String email;
+
+    @JsonProperty
+    List<String> teams;
 
     @JsonProperty
     List<String> tasks;
 
     @JsonProperty
-    List<String> members;
+    List<String> sprints;
 }

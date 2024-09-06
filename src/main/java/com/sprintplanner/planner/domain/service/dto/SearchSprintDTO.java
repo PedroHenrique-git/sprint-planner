@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class SprintDTOResponse {
+public class SearchSprintDTO {
     @JsonProperty
     String id;
 

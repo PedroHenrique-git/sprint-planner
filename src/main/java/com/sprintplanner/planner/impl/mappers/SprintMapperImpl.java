@@ -11,12 +11,15 @@ import com.sprintplanner.planner.domain.mapper.Mapper;
 import com.sprintplanner.planner.domain.model.Member;
 import com.sprintplanner.planner.domain.model.Sprint;
 import com.sprintplanner.planner.domain.model.Task;
+import com.sprintplanner.planner.domain.model.Team;
 import com.sprintplanner.planner.domain.service.MemberService;
 import com.sprintplanner.planner.domain.service.TaskService;
+import com.sprintplanner.planner.domain.service.TeamService;
 import com.sprintplanner.planner.domain.service.dto.SprintDTO;
 import com.sprintplanner.planner.domain.service.dto.SprintDTOResponse;
 import com.sprintplanner.planner.impl.services.MemberServiceImpl;
 import com.sprintplanner.planner.impl.services.TaskServiceImpl;
+import com.sprintplanner.planner.impl.services.TeamServiceImpl;
 
 import jakarta.validation.ValidationException;
 
@@ -24,11 +27,14 @@ import jakarta.validation.ValidationException;
 public class SprintMapperImpl implements Mapper<Sprint, SprintDTO, SprintDTOResponse> {
     private TaskService taskService;
     private MemberService memberService;
+    private TeamService teamService;
     private ModelMapper modelMapper;
 
-    public SprintMapperImpl(TaskServiceImpl taskService, MemberServiceImpl memberService) {
+    public SprintMapperImpl(TaskServiceImpl taskService, MemberServiceImpl memberService, TeamServiceImpl teamService) {
         this.taskService = taskService;
         this.memberService = memberService;
+        this.teamService = teamService;
+
         this.modelMapper = new ModelMapper();
     }
 
@@ -55,6 +61,8 @@ public class SprintMapperImpl implements Mapper<Sprint, SprintDTO, SprintDTOResp
         List<Task> tasks = new ArrayList<>();
         List<Member> members = new ArrayList<>();
 
+        Team team = teamService.get(dto.getTeamId()).orElseThrow(() -> new ValidationException("Team not found"));
+
         IntStream.range(0, dtoTasks.size()).forEach(position -> {
             String tId = dtoTasks.get(position);
 
@@ -77,6 +85,7 @@ public class SprintMapperImpl implements Mapper<Sprint, SprintDTO, SprintDTOResp
 
         sprint.setTasks(tasks);
         sprint.setMembers(members);
+        sprint.setTeam(team);
 
         return sprint;
     }
@@ -93,6 +102,7 @@ public class SprintMapperImpl implements Mapper<Sprint, SprintDTO, SprintDTOResp
 
         dto.setTasks(sprintTasks.stream().map(Task::getId).toList());
         dto.setMembers(sprintMembers.stream().map(Member::getId).toList());
+        dto.setTeamId(sprint.getTeam().getId());
 
         return dto;
     }
@@ -109,6 +119,7 @@ public class SprintMapperImpl implements Mapper<Sprint, SprintDTO, SprintDTOResp
 
         dto.setTasks(sprintTasks.stream().map(Task::getId).toList());
         dto.setMembers(sprintMembers.stream().map(Member::getId).toList());
+        dto.setTeamId(sprint.getTeam().getId());
 
         return dto;
     }

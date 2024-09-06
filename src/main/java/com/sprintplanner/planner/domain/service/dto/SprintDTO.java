@@ -23,6 +23,10 @@ public class SprintDTO {
     @Size(max = 255, message = "The description must not have a maximum of 255 characters")
     String description;
 
+    @NotBlank(message = "the sprint team must not the blank")
+    @NotNull(message = "the sprint team must not the null")
+    String teamId;
+
     @NotNull(message = "the sprint tasks must not the null")
     List<String> tasks;
 

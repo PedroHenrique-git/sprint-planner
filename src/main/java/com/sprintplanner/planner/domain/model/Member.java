@@ -1,6 +1,7 @@
 package com.sprintplanner.planner.domain.model;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,7 +39,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@EntityListeners(MemberAuditListener.class)
+@EntityListeners({ MemberAuditListener.class })
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -70,15 +71,15 @@ public class Member {
     private UserAction action;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "sprint_member", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "sprint_id"))
-    private List<Sprint> sprints;
+    private List<Sprint> sprints = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "team_member", joinColumns = @JoinColumn(name = "member_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-    private List<Team> teams;
+    private List<Team> teams = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at")

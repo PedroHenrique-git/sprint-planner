@@ -41,7 +41,10 @@ public class UserResourceFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         String method = request.getMethod();
 
-        if (shouldVerifyRequest(uri, method)) {
+        boolean isMemberEndpoint = uri.contains("members");
+        boolean isNotSearchEndpoint = !uri.contains("search");
+
+        if (isNotSearchEndpoint && isMemberEndpoint && shouldVerifyRequest(uri, method)) {
             String authenticationHeader = request.getHeader("Authorization");
             String token = authenticationHeader.split("Bearer ")[1];
 
