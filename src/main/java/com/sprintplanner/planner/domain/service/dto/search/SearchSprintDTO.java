@@ -1,5 +1,6 @@
 package com.sprintplanner.planner.domain.service.dto.search;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,6 +18,12 @@ public class SearchSprintDTO {
 
     @JsonProperty
     String name;
+
+    @JsonProperty
+    String startDate;
+
+    @JsonProperty
+    String endDate;
 
     @JsonProperty
     String description;

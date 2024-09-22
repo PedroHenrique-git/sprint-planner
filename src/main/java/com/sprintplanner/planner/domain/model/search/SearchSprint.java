@@ -27,6 +27,12 @@ public class SearchSprint {
     String name;
 
     @Field(type = FieldType.Text)
+    String startDate;
+
+    @Field(type = FieldType.Text)
+    String endDate;
+
+    @Field(type = FieldType.Text)
     String description;
 
     @Field(type = FieldType.Text)

@@ -24,8 +24,8 @@ import lombok.extern.java.Log;
 @Log
 @Service
 public class SearchMemberServiceImpl implements SearchMemberService {
-    private SearchMemberRepository searchRepository;
-    private MemberService service;
+    private final SearchMemberRepository searchRepository;
+    private final MemberService service;
 
     @Value("${spring.elasticsearch.force-rebuild}")
     private boolean rebuildData;

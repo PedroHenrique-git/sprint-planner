@@ -64,6 +64,8 @@ public class SprintAuditListener implements SprintListener {
         searchSprint.setMembers(sprint.getMembers().stream().map(Member::getId).toList());
         searchSprint.setDescription(sprint.getDescription());
         searchSprint.setTeamId(sprint.getTeam().getId());
+        searchSprint.setStartDate(sprint.getStartDate().toString());
+        searchSprint.setEndDate(sprint.getEndDate().toString());
 
         return searchSprint;
     }

@@ -32,12 +32,8 @@ public abstract class SearchController<SearchModel, SearchDTO, SearchDTOResponse
     public ResponseEntity<SearchDTOResponse> get(@PathVariable String id) {
         Optional<SearchModel> data = service.get(id);
 
-        if (!data.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
-                .body(mapper.fromModelToModelDTOResponse(data.get()));
+        return data.map(searchModel -> ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+                .body(mapper.fromModelToModelDTOResponse(searchModel))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping

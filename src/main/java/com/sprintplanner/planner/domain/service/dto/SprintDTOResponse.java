@@ -1,5 +1,6 @@
 package com.sprintplanner.planner.domain.service.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,6 +18,12 @@ public class SprintDTOResponse {
 
     @JsonProperty
     String name;
+
+    @JsonProperty
+    LocalDateTime startDate;
+
+    @JsonProperty
+    LocalDateTime endDate;
 
     @JsonProperty
     String description;

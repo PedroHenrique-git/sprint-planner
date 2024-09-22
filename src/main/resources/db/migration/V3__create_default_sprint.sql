@@ -2,17 +2,21 @@ insert into
       sprint (
         id, 
         created_at, 
-        description, 
+        description,
+        end_date,
         updated_at, 
-        name, 
+        name,
+        start_date,
         team_id
       )
     values
       (
         gen_random_uuid(), 
         now(), 
-        'flyway sprint', 
+        'flyway sprint',
+        now(),
         now(), 
-        'flyway sprint', 
+        'flyway sprint',
+        now(),
         (select id from team where name = 'flyway')
       );

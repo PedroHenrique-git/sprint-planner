@@ -1,6 +1,7 @@
 package com.sprintplanner.planner.domain.model;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,14 @@ public class Sprint {
 
     @Nonnull
     private String description;
+
+    @Nonnull
+    @Column(name = "start_date", columnDefinition = "TIMESTAMP")
+    private LocalDateTime startDate;
+
+    @Nonnull
+    @Column(name = "end_date", columnDefinition = "TIMESTAMP")
+    private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Task> tasks = new ArrayList<>();

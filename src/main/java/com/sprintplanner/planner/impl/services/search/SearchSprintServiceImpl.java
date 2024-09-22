@@ -79,6 +79,8 @@ public class SearchSprintServiceImpl implements SearchSprintService {
         sprint.setMembers(newSprint.getMembers());
         sprint.setName(newSprint.getName());
         sprint.setTasks(newSprint.getTasks());
+        sprint.setStartDate(newSprint.getStartDate());
+        sprint.setEndDate(newSprint.getEndDate());
 
         searchRepository.save(sprint);
 
@@ -106,6 +108,8 @@ public class SearchSprintServiceImpl implements SearchSprintService {
             ss.setName(s.getName());
             ss.setTeamId(s.getTeam().getId());
             ss.setTasks(s.getTasks().stream().map(Task::getId).toList());
+            ss.setStartDate(s.getEndDate().toString());
+            ss.setEndDate(s.getStartDate().toString());
 
             searchRepository.save(ss);
         });
