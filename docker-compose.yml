@@ -5,7 +5,7 @@ services:
     env_file: .env.docker
     restart: always
     ports:
-      - 8090:8090
+      - "8090:8090"
     networks:
       - app
     depends_on:
@@ -27,6 +27,21 @@ services:
     networks:
       - app
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    env_file: .env
+    environment:
+      - PGADMIN_LISTEN_PORT=8082
+      - PGADMIN_DEFAULT_EMAIL=${DEFAULT_PG_ADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${DEFAULT_PG_ADMIN_PASSWORD}
+    ports:
+      - "8082:8082"
+    depends_on:
+      - db
+    networks:
+      - app
+
+
   keycloak:
     image: quay.io/keycloak/keycloak:25.0
     restart: always
@@ -45,9 +60,9 @@ services:
       - start-dev
       - --proxy-headers=forwarded
     ports:
-      - 8080:8080
-      - 8443:8443
-      - 9000:9000
+      - "8080:8080"
+      - "8443:8443"
+      - "9000:9000"
     networks:
       - app
     depends_on:
@@ -58,8 +73,8 @@ services:
     image: mailhog/mailhog:latest
     restart: always
     ports:
-      - 1025:1025
-      - 8025:8025
+      - "1025:1025"
+      - "8025:8025"
     networks:
       - app
 
@@ -69,7 +84,7 @@ services:
     volumes:
       - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - 80:80
+      - "80:80"
     networks:
       - app
     depends_on:
@@ -86,8 +101,8 @@ services:
     volumes:
       - elastic:/usr/share/elasticsearch
     ports:
-      - 9200:9200
-      - 9300:9300
+      - "9200:9200"
+      - "9300:9300"
     networks:
       - app
 
@@ -97,7 +112,7 @@ services:
     volumes:
       - kibana:/usr/share/kibana
     ports:
-      - 5601:5601
+      - "5601:5601"
     networks:
       - app
     depends_on:
