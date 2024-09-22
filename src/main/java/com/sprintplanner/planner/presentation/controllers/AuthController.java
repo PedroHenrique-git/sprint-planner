@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @GetMapping("/authenticated-user")
-    public ResponseEntity<Map<String, String>> getAUthenticatedUser(@AuthenticationPrincipal Jwt token) {
+    public ResponseEntity<Map<String, String>> getAuthenticatedUser(@AuthenticationPrincipal Jwt token) {
         return ResponseEntity.ok(extractUserInfoFromToken(token));
     }
     
