@@ -28,4 +28,7 @@ public class TeamDTO {
 
     @NotNull(message = "the team members must not the null")
     List<String> members;
+
+    @NotNull(message = "the team projects must not the null")
+    List<String> projects;
 }

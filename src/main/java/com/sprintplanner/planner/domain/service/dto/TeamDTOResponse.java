@@ -26,4 +26,7 @@ public class TeamDTOResponse {
 
     @JsonProperty
     List<String> members;
+
+    @JsonProperty
+    List<String> projects;
 }

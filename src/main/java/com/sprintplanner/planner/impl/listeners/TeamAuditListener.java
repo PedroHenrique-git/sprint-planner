@@ -2,6 +2,7 @@ package com.sprintplanner.planner.impl.listeners;
 
 import com.sprintplanner.planner.domain.listeners.TeamListener;
 import com.sprintplanner.planner.domain.model.Member;
+import com.sprintplanner.planner.domain.model.Project;
 import com.sprintplanner.planner.domain.model.Sprint;
 import com.sprintplanner.planner.domain.model.Team;
 import com.sprintplanner.planner.domain.model.search.SearchTeam;
@@ -63,6 +64,7 @@ public class TeamAuditListener implements TeamListener {
         searchTeam.setDescription(team.getDescription());
         searchTeam.setSprints(team.getSprints().stream().map(Sprint::getId).toList());
         searchTeam.setMembers(team.getMembers().stream().map(Member::getId).toList());
+        searchTeam.setProjects(team.getProjects().stream().map(Project::getId).toList());
 
         return searchTeam;
     }

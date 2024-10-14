@@ -25,10 +25,10 @@ import jakarta.validation.ValidationException;
 
 @Component
 public class SprintMapperImpl implements Mapper<Sprint, SprintDTO, SprintDTOResponse> {
-    private TaskService taskService;
-    private MemberService memberService;
-    private TeamService teamService;
-    private ModelMapper modelMapper;
+    private final TaskService taskService;
+    private final MemberService memberService;
+    private final TeamService teamService;
+    private final ModelMapper modelMapper;
 
     public SprintMapperImpl(TaskServiceImpl taskService, MemberServiceImpl memberService, TeamServiceImpl teamService) {
         this.taskService = taskService;

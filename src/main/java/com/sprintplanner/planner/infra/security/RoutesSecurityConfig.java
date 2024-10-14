@@ -9,6 +9,7 @@ public class RoutesSecurityConfig {
         "/api/v1/tasks/**",
         "/api/v1/teams/**",
         "/api/v1/members/**",
+        "/api/v1/projects/**",
         "/api/v1/auth/authenticated-user",
     };
 
@@ -16,6 +17,7 @@ public class RoutesSecurityConfig {
         "/api/v1/sprints",
         "/api/v1/tasks",
         "/api/v1/teams",
+        "/api/v1/projects",
     };
 
     public final String[] API_PUT_BLACK_LIST = {
@@ -23,6 +25,7 @@ public class RoutesSecurityConfig {
         "/api/v1/tasks/**",
         "/api/v1/teams/**",
         "/api/v1/members/**",
+        "/api/v1/projects/**"
     };
 
     public final String[] API_DELETE_BLACK_LIST = {
@@ -30,5 +33,6 @@ public class RoutesSecurityConfig {
         "/api/v1/tasks/**",
         "/api/v1/teams/**",
         "/api/v1/members/**",
+        "/api/v1/projects/**",
     };
 }

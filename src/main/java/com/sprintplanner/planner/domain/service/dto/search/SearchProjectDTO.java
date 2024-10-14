@@ -1,17 +1,16 @@
 package com.sprintplanner.planner.domain.service.dto.search;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class SearchTeamDTO {
+public class SearchProjectDTO {
     @JsonProperty
     String id;
 
@@ -22,11 +21,5 @@ public class SearchTeamDTO {
     String description;
 
     @JsonProperty
-    List<String> sprints;
-
-    @JsonProperty
-    List<String> members;
-
-    @JsonProperty
-    List<String> projects;
+    List<String> teams;
 }

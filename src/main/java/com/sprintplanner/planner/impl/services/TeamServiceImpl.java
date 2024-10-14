@@ -57,6 +57,7 @@ public class TeamServiceImpl implements TeamService {
         team.setDescription(newTeam.getDescription());
         team.setMembers(newTeam.getMembers());
         team.setSprints(newTeam.getSprints());
+        team.setProjects(newTeam.getProjects());
 
         repository.save(team);
 

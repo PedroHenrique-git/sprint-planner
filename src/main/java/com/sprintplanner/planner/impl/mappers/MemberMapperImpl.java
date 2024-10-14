@@ -25,10 +25,10 @@ import jakarta.validation.ValidationException;
 
 @Component
 public class MemberMapperImpl implements Mapper<Member, MemberDTO, MemberDTOResponse>  {
-    private TaskService taskService;
-    private SprintService sprintService;
-    private TeamService teamService;
-    private ModelMapper modelMapper;
+    private final TaskService taskService;
+    private final SprintService sprintService;
+    private final TeamService teamService;
+    private final ModelMapper modelMapper;
 
     public MemberMapperImpl(TaskServiceImpl taskService, SprintServiceImpl sprintService, TeamServiceImpl teamService) {
         this.taskService = taskService;

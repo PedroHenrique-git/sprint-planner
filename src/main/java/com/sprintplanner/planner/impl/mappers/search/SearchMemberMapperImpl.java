@@ -11,7 +11,7 @@ import com.sprintplanner.planner.domain.service.dto.search.SearchMemberDTO;
 
 @Component
 public class SearchMemberMapperImpl implements Mapper<SearchMember, SearchMemberDTO, SearchMemberDTO> {
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public SearchMemberMapperImpl() {
         this.modelMapper = new ModelMapper();

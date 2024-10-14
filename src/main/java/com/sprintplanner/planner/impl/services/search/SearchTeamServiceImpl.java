@@ -78,6 +78,7 @@ public class SearchTeamServiceImpl implements SearchTeamService {
         team.setMembers(newTeam.getMembers());
         team.setName(newTeam.getName());
         team.setSprints(newTeam.getSprints());
+        team.setProjects(newTeam.getProjects());
 
         searchRepository.save(team);
 
