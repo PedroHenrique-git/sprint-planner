@@ -8,7 +8,7 @@ The project is configured to run via docker, just run the command
 
 ```docker compose up -d```
 
-to run the entire environment locally, with elastic search database, keycloak and nginx.
+to run the entire environment locally, with elastic search, postgres, keycloak and nginx.
 
 ### Integrations
 
