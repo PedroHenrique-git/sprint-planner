@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.sprintplanner.planner.domain.model.Project;
+import com.sprintplanner.planner.domain.model.Team;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -105,6 +107,7 @@ public class SearchTeamServiceImpl implements SearchTeamService {
             st.setMembers(t.getMembers().stream().map(Member::getId).toList());
             st.setName(t.getName());
             st.setSprints(t.getSprints().stream().map(Sprint::getId).toList());
+            st.setProjects(t.getProjects().stream().map(Project::getId).toList());
 
             searchRepository.save(st);
         });
